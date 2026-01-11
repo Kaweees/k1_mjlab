@@ -5,7 +5,7 @@ from mjlab.sensor import ContactMatch, ContactSensorCfg
 from mjlab.tasks.velocity.velocity_env_cfg import make_velocity_env_cfg
 
 from k1_mjlab.robot.k1_constants import (
-    K1_ROBOT_CFG,
+    get_k1_robot_cfg,
 )
 
 
@@ -13,7 +13,7 @@ def booster_k1_rough_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
     """Create Booster K1 rough terrain velocity configuration."""
     cfg = make_velocity_env_cfg()
 
-    cfg.scene.entities = {"robot": K1_ROBOT_CFG}
+    cfg.scene.entities = {"robot": get_k1_robot_cfg()}
 
     # K1 is a humanoid with 2 feet.
     site_names = ("left_foot", "right_foot")
