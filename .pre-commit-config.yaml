@@ -1,0 +1,52 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: "v6.0.0"
+    hooks:
+      # Basic safety checks
+      - id: check-added-large-files
+        args: ["--maxkb=15000"]
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-symlinks
+      - id: destroyed-symlinks
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: check-toml
+      - id: check-yaml
+
+      # Simple auto-fixers
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+      # Quick correctness checks
+      - id: debug-statements
+
+      # Security checks (can also be placed last)
+      - id: detect-private-key
+
+  - repo: https://github.com/PyCQA/autoflake
+    rev: "v2.3.1"
+    hooks:
+      - id: autoflake
+        args:
+          [
+            "--in-place",
+            "--remove-all-unused-imports",
+            "--remove-unused-variables",
+            "--recursive",
+          ]
+
+  - repo: https://github.com/asottile/pyupgrade
+    rev: "v3.21.0"
+    hooks:
+      - id: pyupgrade
+        args: ["--py310-plus", "--keep-runtime-typing"]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: "v0.14.0"
+    hooks:
+      # Formatter first so code is canonicalized
+      - id: ruff-format
+      # Then linting + autofixes
+      - id: ruff
+        args: [--fix]
