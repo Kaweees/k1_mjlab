@@ -83,7 +83,7 @@ FEET_ONLY_COLLISION = CollisionCfg(
     conaffinity=0,
     condim=3,
     priority=1,
-    friction={_foot_regex: (0.6,)},
+    friction=(0.6,),
 )
 
 ##
