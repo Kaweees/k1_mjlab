@@ -71,9 +71,6 @@ def booster_k1_rough_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
     cfg.viewer.body_name = "Trunk"
     cfg.commands["twist"].viz.z_offset = 1.15
 
-    # foot_height observation derives foot positions from the foot_height_scan
-    # sensor (frame set per-foot below), not an asset_cfg.
-
     cfg.events["foot_friction"].params["asset_cfg"].geom_names = geom_names
     cfg.events["base_com"].params["asset_cfg"].body_names = ("Trunk",)
 
@@ -121,7 +118,6 @@ def booster_k1_rough_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
     cfg.rewards["upright"].params["asset_cfg"].body_names = ("Trunk",)
     cfg.rewards["body_ang_vel"].params["asset_cfg"].body_names = ("Trunk",)
 
-    # foot_swing_height locates feet via its sensors, not an asset_cfg.
     for reward_name in ["foot_clearance", "foot_slip"]:
         cfg.rewards[reward_name].params["asset_cfg"].site_names = site_names
     cfg.rewards["foot_swing_height"].params["target_height"] = target_foot_height
@@ -183,7 +179,7 @@ def booster_k1_flat_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
     del cfg.observations["actor"].terms["height_scan"]
     del cfg.observations["critic"].terms["height_scan"]
 
-    # Disable terrain curriculum (not present in play mode since rough clears all).
+    # Disable terrain curriculum.
     cfg.curriculum.pop("terrain_levels", None)
 
     if play:
